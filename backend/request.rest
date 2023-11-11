@@ -1,0 +1,12 @@
+###
+POST http://localhost:5000/users
+Content-Type: application/json
+
+{
+    "id_artist": "12345",
+    "username": "ghani12",
+    "password": "ghanighanteng23"
+}
+
+###
+GET http://localhost:5000/users
