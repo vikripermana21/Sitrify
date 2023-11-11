@@ -1,8 +1,10 @@
 #root {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
+  /* padding: 2rem; */
   text-align: center;
+  background: linear-gradient(to right, #2e1f46, #653f87);
+  font-family: "Poppins", sans-serif;
 }
 
 .logo {
