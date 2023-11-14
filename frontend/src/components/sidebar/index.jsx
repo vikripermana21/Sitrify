@@ -1,6 +1,9 @@
 import React from "react";
 import { useNavigate, useParams, useMatch } from "react-router-dom";
 import { FiMenu } from "react-icons/fi";
+import { IoBarChartSharp } from "react-icons/io5";
+import { FiTrendingUp } from "react-icons/fi";
+import { BiListUl } from "react-icons/bi";
 
 const SideBar = ({ contentType }) => {
   const navigate = useNavigate();
@@ -33,40 +36,54 @@ const SideBar = ({ contentType }) => {
             <li className="mb-2">
               <img src="/image/logo.svg" alt="" className="" />
             </li>
-            <li className="mb-2">
+            <li
+              className="mb-2 text-base"
+              style={
+                prediksiMatch
+                  ? { backgroundColor: "#453158", color: "#fff" }
+                  : { color: "#ffffff" }
+              }
+            >
               <a
                 href="/prediksi"
-                style={
-                  prediksiMatch
-                    ? { backgroundColor: "#453158", color: "#ffffff" }
-                    : { color: "#ffffff" }
-                }
+                style={prediksiMatch ? { color: "#fff" } : { color: "#ffffff" }}
               >
+                <FiTrendingUp />
                 Prediksi Lagu
               </a>
             </li>
 
-            <li className="mb-2">
+            <li
+              className="mb-2 text-base"
+              style={
+                chartsMatch
+                  ? { backgroundColor: "#453158", color: "#fff" }
+                  : { color: "#ffffff" }
+              }
+            >
               <a
                 href="/charts"
-                style={
-                  chartsMatch
-                    ? { backgroundColor: "#453158", color: "#ffffff" }
-                    : { color: "#ffffff" }
-                }
+                style={chartsMatch ? { color: "#fff" } : { color: "#ffffff" }}
               >
+                <IoBarChartSharp />
                 Charts
               </a>
             </li>
-            <li className="mb-2">
+            <li
+              className="mb-2 text-base"
+              style={
+                daftarArtisMatch
+                  ? { backgroundColor: "#453158", color: "#fff" }
+                  : { color: "#ffffff" }
+              }
+            >
               <a
                 href="/daftar-artis"
                 style={
-                  daftarArtisMatch
-                    ? { backgroundColor: "#453158", color: "#ffffff" }
-                    : { color: "#ffffff" }
+                  daftarArtisMatch ? { color: "#fff" } : { color: "#ffffff" }
                 }
               >
+                <BiListUl />
                 Daftar Artis
               </a>
             </li>
