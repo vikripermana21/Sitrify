@@ -3,10 +3,43 @@ POST http://localhost:5000/users
 Content-Type: application/json
 
 {
+    "id_artist": "123",
+    "username": "admin",
+    "password": "admin"
+}
+
+###
+POST http://localhost:5000/login
+Content-Type: application/json
+
+{
+    "username": "admin",
+    "password": "admin"
+}
+
+###
+GET http://localhost:5000/users
+
+###
+GET http://localhost:5000/users/654f124e6bd7de1dba5b46ad
+
+###
+PUT http://localhost:5000/users/654f124e6bd7de1dba5b46ad
+Content-Type: application/json
+
+{
+    "id_artist": "12345",
+    "username": "ghani12",
+    "password": "ghanighantengbangettt"
+}
+
+###
+DELETE http://localhost:5000/users/654f12356bd7de1dba5b46ab
+Content-Type: application/json
+
+{
     "id_artist": "12345",
     "username": "ghani12",
     "password": "ghanighanteng23"
 }
 
-###
-GET http://localhost:5000/users
