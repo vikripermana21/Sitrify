@@ -6,6 +6,7 @@ const connectDB = async () => {
     await mongoose.connect('mongodb://localhost:27017/SitrifyDB', {
       useNewUrlParser: true,
       useUnifiedTopology: true,
+      family: 4,
       // tambahkan opsi lain jika diperlukan
     });
     console.log('Terhubung ke MongoDB!');
