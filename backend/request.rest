@@ -1,3 +1,5 @@
+###################################################################################################################################
+
 ###
 POST http://localhost:5000/users
 Content-Type: application/json
@@ -41,5 +43,50 @@ Content-Type: application/json
     "id_artist": "12345",
     "username": "ghani12",
     "password": "ghanighanteng23"
+}
+
+
+###################################################################################################################################
+
+###
+GET http://localhost:5000/artists
+
+###
+GET http://localhost:5000/artists/654f075d020b4e8cd98be780
+
+###
+POST http://localhost:5000/artists
+Content-Type: application/json
+
+{
+  "id_artist": "blblal",
+  "name": "ghani",
+  "genres": ["J-pop", "pop"],
+  "image" : "fsaf",
+  "followers_popularity": [
+    {
+      "followers": 1000000,
+      "popularity": 90,
+      "timestamp": "2023-11-29T00:00:00.000Z"
+    }
+  ]
+}
+
+###
+DELETE http://localhost:5000/artists/6552d256735d8344aa869dbf
+Content-Type: application/json
+
+{
+  "id_artist": "blblal",
+  "name": "ghani",
+  "genres": ["J-pop", "pop"],
+  "image": "dhfi",
+  "followers_popularity": [
+    {
+      "followers": 1000000,
+      "popularity": 90,
+      "timestamp": "2023-11-29T00:00:00.000Z"
+    }
+  ]
 }
 
