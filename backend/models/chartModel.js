@@ -11,6 +11,7 @@ const chartSongSchema = new mongoose.Schema({
   ],
   id_song: String,
   song_name: String,
+  image: String,
   audio_features: {
     acousticness: Number,
     danceability: Number,
