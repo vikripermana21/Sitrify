@@ -20,6 +20,7 @@ const bodyParser = require('body-parser');
 
 const connectDB = require('./config/db');
 const userRoutes = require('./routes/userRoutes');
+const chartRoutes = require('./routes/chartRoutes');
 
 const app = express();
 
@@ -31,6 +32,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(userRoutes);
+app.use(chartRoutes);
 
 const port = process.env.PORT || 5000;
 app.listen(port, () => {
