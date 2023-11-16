@@ -23,16 +23,13 @@ const SideBar = ({ contentType }) => {
             <FiMenu />
           </label>
         </div>
-        <div className="drawer-side">
+        <div className="drawer-side" style={{ backgroundColor: "#29163A" }}>
           <label
             htmlFor="my-drawer-2"
             aria-label="close sidebar"
             className="drawer-overlay"
           ></label>
-          <ul
-            className="menu p-4 w-80 h-screen text-base-content"
-            style={{ backgroundColor: "#29163A" }}
-          >
+          <ul className="menu p-4 w-80  text-base-content">
             <li className="mb-2">
               <img src="/image/logo.svg" alt="" className="" />
             </li>

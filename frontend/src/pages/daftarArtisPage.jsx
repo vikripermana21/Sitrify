@@ -15,8 +15,10 @@ const DaftarArtisPage = () => {
             Daftar Artis
           </p>
         </div>
-        <div className="pl-4">
-          <div className="card bg-base-100 shadow-xl">
+        <div className="pl-4 ">
+          {" "}
+          {/* add h-screen overflow-y-auto buat bisa scrolling */}
+          <div className="card bg-base-100 shadow-xl ">
             <div className="card-body p-0">
               <div className="bg-white overflow-x-auto ">
                 <table className="table">
