@@ -1,0 +1,5 @@
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 122-158-661
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2023 13:00:55] "[33mGET /user HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [16/Nov/2023 13:00:57] "[33mGET /user HTTP/1.1[0m" 404 -
+INFO:werkzeug: * Detected change in 'D:\\1-KULIAH\\SEMESTER 5\\Sistem Informasi\\Praktek\\prototype-web\\Sitrify\\backend\\app\\__init__.py', reloading

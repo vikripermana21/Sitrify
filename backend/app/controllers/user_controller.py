@@ -1,6 +1,7 @@
 from flask_pymongo import PyMongo
+from app import app
 
-mongo = PyMongo()
+mongo = PyMongo(app)
 
 def create_user(id_artist, username, password):
     collection = mongo.db.users
@@ -10,6 +11,12 @@ def create_user(id_artist, username, password):
         'password': password
     }
     collection.insert_one(user)
+
+def get_all_users():
+    collection = mongo.db.users
+    print("collection", collection)
+    users = list(collection.find({}, {'_id': 0}))  # Menggunakan list() untuk mengubah kursor menjadi daftar
+    return {"users": users}
 
 def get_user(username):
     collection = mongo.db.users

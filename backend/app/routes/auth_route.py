@@ -1,8 +1,8 @@
-# app/routes/auth_routes.py
-
-from flask import request, jsonify
+from flask import Blueprint, request, jsonify
 from app import app
 from app.controllers.auth_controller import login
+
+auth_route = Blueprint('auth_route', __name__, url_prefix='/api')
 
 @app.route('/login', methods=['POST'])
 def login_route():
