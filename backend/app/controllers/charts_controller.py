@@ -54,7 +54,7 @@ def get_chart_by_timestamp(timestamp):
                 difference = "new"
 
             # Tambahkan informasi selisih ke dalam dictionary song_today
-            song_today['difference'] = difference
+            song_today['ranking_difference'] = difference
 
             # Hapus audio_features jika ada
             if 'audio_features' in song_today:
