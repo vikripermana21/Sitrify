@@ -22,6 +22,7 @@ const connectDB = require('./config/db');
 const userRoutes = require('./routes/userRoutes');
 const chartRoutes = require('./routes/chartRoutes');
 const artistRoutes = require('./routes/artistRoutes');
+const songRoutes = require('./routes/songRoutes');
 
 const app = express();
 
@@ -35,6 +36,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(userRoutes);
 app.use(chartRoutes);
 app.use(artistRoutes);
+app.use(songRoutes);
 
 const port = process.env.PORT || 5000;
 app.listen(port, () => {
