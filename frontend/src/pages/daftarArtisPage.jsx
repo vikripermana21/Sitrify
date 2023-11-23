@@ -1,13 +1,36 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import SideBar from "../components/sidebar";
 import AvatarProfile from "../components/profile";
 import "simple-datatables";
 
 const DaftarArtisPage = () => {
+  const [artistData, setArtistData] = useState([]);
+  const [follPopDifference, setFollPopDifferenceData] = useState([]);
+
+  const GetDataArtist = async () => {
+    try {
+      const chartResponse = await fetch(`http://localhost:5000/api/artist`);
+      const artistData = await chartResponse.json();
+      setArtistData(artistData.artist);
+
+      const follPopDifferenceResponse = await fetch(
+        `http://localhost:5000/api/artist/followers-popularity-difference/all`
+      );
+      const follPopDifferenceData = await follPopDifferenceResponse.json();
+      setFollPopDifferenceData(follPopDifferenceData);
+
+      console.log(artistData.artists);
+      console.log(follPopDifferenceData);
+    } catch (error) {
+      console.error("Error fetching artist data:", error.message);
+    }
+  };
+
   useEffect(() => {
     new simpleDatatables.DataTable("#myTable", {
       pagination: true,
     });
+    GetDataArtist();
   }, []);
 
   return (
@@ -39,31 +62,32 @@ const DaftarArtisPage = () => {
                     </tr>
                   </thead>
                   <tbody style={{ color: "#29163A" }}>
-                    {/* row 1 */}
-                    <tr>
-                      <td></td>
-                      <td>
-                        <div className="flex items-center space-x-3">
-                          <div className="avatar">
-                            <div className="mask mask-squircle w-12 h-12">
-                              <img
-                                src="/image/profile.jpg"
-                                alt="Avatar Tailwind CSS Component"
-                              />
+                    {artistData.map((artist, index) => (
+                      <tr>
+                        <td></td>
+                        <td>
+                          <div className="flex items-center space-x-3">
+                            <div className="avatar">
+                              <div className="mask mask-squircle w-12 h-12">
+                                <img
+                                  src="/image/profile.jpg"
+                                  alt="Avatar Tailwind CSS Component"
+                                />
+                              </div>
                             </div>
+                            <div>{artist.name}</div>
                           </div>
-                          <div>Drake</div>
-                        </div>
-                      </td>
-                      <td>
-                        <p>899.876.999</p>
-                        <span className="text-green-600">+41.500</span>
-                      </td>
-                      <td>
-                        <p>95</p>
-                        <span className="text-red-600">-2</span>
-                      </td>
-                    </tr>
+                        </td>
+                        <td>
+                          <p>899.876.999</p>
+                          <span className="text-green-600">+41.500</span>
+                        </td>
+                        <td>
+                          <p>95</p>
+                          <span className="text-red-600">-2</span>
+                        </td>
+                      </tr>
+                    ))}
                   </tbody>
                 </table>
               </div>
