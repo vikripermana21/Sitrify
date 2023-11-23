@@ -4,7 +4,7 @@ from app.controllers.auth_controller import login
 
 auth_route = Blueprint('auth_route', __name__, url_prefix='/api')
 
-@app.route('/login', methods=['POST'])
+@auth_route.route('/login', methods=['POST'])
 def login_route():
     data = request.get_json()
     username = data.get('username')
