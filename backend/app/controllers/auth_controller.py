@@ -11,7 +11,7 @@ bcrypt = Bcrypt(app)
 def login(username, password):
     try:
         # Cari pengguna berdasarkan username
-        user = mongo.db.users.find_one({'username': username}, {'_id' : 0})
+        user = mongo.db.users.find_one({'username': username}, {'_id': 0})
 
         # Jika pengguna tidak ditemukan
         if not user:
@@ -28,8 +28,4 @@ def login(username, password):
         return {"message": "Login berhasil", "user": user}, 200
 
     except Exception as e:
-        print(e)
-        import traceback
-        traceback.print_exc()
-        return {"message": "Terjadi kesalahan"}, 500
-
+        return {"message": str(e)}, 500
