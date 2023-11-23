@@ -1,5 +1,5 @@
 from app import app
-from keras.models import load_model
+from tensorflow.keras.models import load_model
 import numpy as np
 import os
 
@@ -18,14 +18,8 @@ def predict_song(data):
         data["loudness"],
         data["valence"]
     ]
-    # Mengubah data menjadi array numpy
-    # audio_features = np.array([audio_features])
 
-    # Melakukan prediksi
     prediction = model.predict(np.array([audio_features]))
-
-    # Mengambil index prediksi dengan nilai tertinggi
-    # prediction = np.argmax(prediction)
 
     print(prediction)
 
