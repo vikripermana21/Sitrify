@@ -1,8 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import SideBar from "../components/sidebar";
 import AvatarProfile from "../components/profile";
+import "simple-datatables";
 
 const DaftarArtisPage = () => {
+  useEffect(() => {
+    new simpleDatatables.DataTable("#myTable", {
+      pagination: true,
+    });
+  }, []);
+
   return (
     <div className="h-screen w-screen flex">
       <div className="w-1/4 flex flex-col gap-3 items-center">
@@ -21,7 +28,7 @@ const DaftarArtisPage = () => {
           <div className="card bg-base-100 shadow-xl ">
             <div className="card-body p-0">
               <div className="bg-white overflow-x-auto ">
-                <table className="table">
+                <table id="myTable" className="table">
                   {/* head */}
                   <thead className="text-black bg-base-200 text-sm">
                     <tr>
@@ -29,7 +36,6 @@ const DaftarArtisPage = () => {
                       <th>Artis</th>
                       <th>Pengikut</th>
                       <th>Popularitas</th>
-                      <th></th>
                     </tr>
                   </thead>
                   <tbody style={{ color: "#29163A" }}>

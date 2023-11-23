@@ -1,11 +1,76 @@
 import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import "./App.css";
 import { useNavigate } from "react-router-dom";
 
 function App() {
   const navigate = useNavigate();
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState({
+    username: "",
+    password: "",
+    general: "",
+  });
+
+  const handleLogin = async () => {
+    // Validasi input sebelum melakukan request
+    if (!username) {
+      setError((prevError) => ({
+        ...prevError,
+        username: "Username harus diisi",
+      }));
+      return;
+    }
+
+    if (!password) {
+      setError((prevError) => ({
+        ...prevError,
+        password: "Password harus diisi",
+      }));
+      return;
+    }
+
+    try {
+      // Reset pesan error saat melakukan request
+      setError({ username: "", password: "", general: "" });
+
+      const response = await fetch("http://localhost:5000/api/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username, password }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        // Login berhasil, lakukan navigasi atau tindakan selanjutnya
+        console.log("Login berhasil:", data);
+        navigate("/prediksi");
+      } else {
+        // Login gagal, tampilkan pesan kesalahan
+        console.error("Login gagal:", data.message);
+        setError((prevError) => ({
+          ...prevError,
+          general: "Username atau password salah",
+        }));
+      }
+    } catch (error) {
+      console.error("Terjadi kesalahan:", error.message);
+    }
+  };
+
+  // Handle change event untuk menghapus pesan kesalahan saat input berubah
+  const handleUsernameChange = (e) => {
+    setUsername(e.target.value);
+    setError((prevError) => ({ ...prevError, username: "" }));
+  };
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+    setError((prevError) => ({ ...prevError, password: "" }));
+  };
 
   return (
     <div className="h-screen w-screen flex">
@@ -31,9 +96,16 @@ function App() {
                 <input
                   type="username"
                   placeholder="Masukan username"
-                  className="input input-bordered"
+                  className={`input input-bordered ${
+                    error.username ? "input-error" : ""
+                  }`}
+                  value={username}
+                  onChange={handleUsernameChange}
                   required
                 />
+                {error.username && (
+                  <p className="text-xs text-error">{error.username}</p>
+                )}
               </div>
               <div className="form-control">
                 <label className="label">
@@ -42,18 +114,29 @@ function App() {
                 <input
                   type="password"
                   placeholder="Masukan password"
-                  className="input input-bordered"
+                  className={`input input-bordered ${
+                    error.password ? "input-error" : ""
+                  }`}
+                  value={password}
+                  onChange={handlePasswordChange}
                   required
                 />
+                {error.password && (
+                  <p className="text-xs text-error">{error.password}</p>
+                )}
               </div>
               <div className="form-control mt-6">
                 <button
-                  onClick={() => navigate(`/prediksi`)}
+                  type="button"
+                  onClick={handleLogin}
                   className="btn btn-primary"
                 >
                   Login
                 </button>
               </div>
+              {error.general && (
+                <p className="text-xs text-error">{error.general}</p>
+              )}
             </form>
           </div>
         </div>
