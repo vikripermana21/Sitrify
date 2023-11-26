@@ -1,5 +1,5 @@
 from flask import Flask
-from flask_pymongo import PyMongo
+from flask_pymongo import pymongo
 from app import app
 from app.routes.auth_route import auth_route
 from app.routes.user_route import user_route
@@ -13,9 +13,10 @@ from app.controllers.scheduler_controller import retrieveTop50Global, saveCharts
 from app.controllers.predict_controller import predict_song
 
 app = Flask(__name__)
-app.config['MONGO_URI'] = 'mongodb://localhost:27017/SitrifyDB'
-mongo = PyMongo(app)
+app.config['MONGO_URI'] = 'mongodb+srv://vikripermana91:dJYIornv80L9PbSv@sitrifydb.9mx4ofx.mongodb.net/?retryWrites=true&w=majority'
+mongo = pymongo.MongoClient('mongodb+srv://vikripermana91:dJYIornv80L9PbSv@sitrifydb.9mx4ofx.mongodb.net/?retryWrites=true&w=majority').get_database('SitrifyDB')
 CORS(app)
+user_collection = pymongo.collection.Collection(mongo, 'users')
 
 app.register_blueprint(auth_route, url_prefix='/api')
 app.register_blueprint(user_route, url_prefix='/api')

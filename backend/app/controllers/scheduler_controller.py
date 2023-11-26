@@ -1,11 +1,11 @@
 import schedule
 from datetime import datetime
-from flask_pymongo import PyMongo
+from flask_pymongo import pymongo
 from app import app
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 
-mongo = PyMongo(app)
+mongo = pymongo.MongoClient('mongodb+srv://vikripermana91:dJYIornv80L9PbSv@sitrifydb.9mx4ofx.mongodb.net/?retryWrites=true&w=majority').get_database('SitrifyDB')
 
 sp = spotipy.Spotify(auth_manager=SpotifyClientCredentials(client_id="6301e01d6e834c45b78ce16edf5e110f",
                                                               client_secret="b72c6f398c684d0ca159f8d3d8c68f67"))
@@ -60,12 +60,12 @@ def saveCharts(data):
         'chart_songs': data
     }
 
-    mongo.db.charts.insert_one(document)
+    pymongo.collection.Collection(mongo, 'charts').insert_one(document)
 
     print('Charts berhasil disimpan at ' + timestamp)
 
 def retrieveArtistInfo():
-    artists = mongo.db.artists.find({}, {'_id': 0})
+    artists = pymongo.collection.Collection(mongo, 'artists').find({}, {'_id': 0})
     updated_artist_data = []
 
     for artist in artists:
@@ -83,18 +83,18 @@ def retrieveArtistInfo():
         }
 
         # Mengupdate informasi artist
-        mongo.db.artists.update_one({'id': artist_id}, {'$set': {
+        pymongo.collection.Collection(mongo, 'artists').update_one({'id': artist_id}, {'$set': {
             'genres': artist_info['genres'],
             'image': artist_info['images'][0]['url']
         }})
 
         # Menambahkan followers_popularity_data ke dalam array
-        mongo.db.artists.update_one({'id': artist_id}, {'$push': {'followers_popularity': followers_popularity_data}})
+        pymongo.collection.Collection(mongo, 'artists').update_one({'id': artist_id}, {'$push': {'followers_popularity': followers_popularity_data}})
 
         # print('Informasi ' + artist['name'] + ' berhasil diupdate')
 
         # Mengambil data yang telah diperbarui
-        updated_artist = mongo.db.artists.find_one({'id': artist_id}, {'_id': 0})
+        updated_artist = pymongo.collection.Collection(mongo, 'artists').find_one({'id': artist_id}, {'_id': 0})
         updated_artist_data.append(updated_artist)
 
     return updated_artist_data

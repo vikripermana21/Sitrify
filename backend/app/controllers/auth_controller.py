@@ -1,17 +1,17 @@
 # app/controllers/auth_controller.py
 
-from flask_pymongo import PyMongo
+from flask_pymongo import pymongo
 from flask_bcrypt import Bcrypt
 from flask import jsonify
 from app import app
 
-mongo = PyMongo(app)
+mongo = pymongo.MongoClient('mongodb+srv://vikripermana91:dJYIornv80L9PbSv@sitrifydb.9mx4ofx.mongodb.net/?retryWrites=true&w=majority').get_database('SitrifyDB')
 bcrypt = Bcrypt(app)
 
 def login(username, password):
     try:
         # Cari pengguna berdasarkan username
-        user = mongo.db.users.find_one({'username': username}, {'_id': 0})
+        user = pymongo.collection.Collection(mongo, 'users').find_one({'username': username}, {'_id': 0})
 
         # Jika pengguna tidak ditemukan
         if not user:

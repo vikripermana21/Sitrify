@@ -1,17 +1,17 @@
-from flask_pymongo import PyMongo
+from flask_pymongo import pymongo
 from app import app
 from flask import jsonify, request
 from datetime import datetime, timedelta
 
-mongo = PyMongo(app)
+mongo = pymongo.MongoClient('mongodb+srv://vikripermana91:dJYIornv80L9PbSv@sitrifydb.9mx4ofx.mongodb.net/?retryWrites=true&w=majority').get_database('SitrifyDB')
 
 def get_all_chart_data():
-    chart_collection = mongo.db.charts
+    chart_collection = pymongo.collection.Collection(mongo, 'charts') 
     chart_data = list(chart_collection.find({}, {'_id': 0}))  # Menggunakan list() untuk mengubah kursor menjadi daftar
     return {"charts": chart_data}
     
 # def get_chart_by_timestamp(timestamp):
-#     collection = mongo.db.charts
+#     collection = pymongo.collection.Collection(mongo, 'charts') 
 #     chart_data_by_timestamp = collection.find_one({'timestamp': timestamp})
 
 #     # Konversi ObjectId menjadi string
@@ -21,7 +21,7 @@ def get_all_chart_data():
 #     return chart_data_by_timestamp
 
 def get_chart_by_timestamp(timestamp):
-    collection = mongo.db.charts
+    collection = pymongo.collection.Collection(mongo, 'charts') 
     chart_data_by_timestamp = collection.find_one({'timestamp': timestamp})
 
     # Ambil informasi perubahan ranking menggunakan fungsi get_ranking_difference
@@ -64,7 +64,7 @@ def get_chart_by_timestamp(timestamp):
 
 
 def get_ranking_difference(day, yesterday):
-    collection = mongo.db.charts
+    collection = pymongo.collection.Collection(mongo, 'charts') 
 
     # Ambil data chart untuk suatu harihb ip p
     chart_day = collection.find_one({'timestamp': day})
@@ -100,7 +100,7 @@ def get_ranking_difference(day, yesterday):
 ### CREATE CHART KALO BUTUH ###
 # def create_chart():
 #     data = request.get_json()
-#     collection = mongo.db.charts
+#     collection = pymongo.collection.Collection(mongo, 'charts') 
 
 #     # Membuat chart baru dengan data dari request
 #     new_chart = {

@@ -4,16 +4,26 @@ import { FiMenu } from "react-icons/fi";
 import { IoBarChartSharp } from "react-icons/io5";
 import { FiTrendingUp } from "react-icons/fi";
 import { BiListUl } from "react-icons/bi";
+import AvatarProfile from "../profile";
 
-const SideBar = ({ contentType }) => {
+const SideBar = ({ page }) => {
   const navigate = useNavigate();
   const prediksiMatch = useMatch(`/prediksi`);
   const chartsMatch = useMatch(`/charts`);
   const daftarArtisMatch = useMatch(`/daftar-artis`);
 
   return (
-    <div className="h-screen w-full flex">
-      <div className="drawer lg:drawer-open">
+    <div className="h-screen w-screen flex flex-nowrap">
+      <div
+        className="z-10 p-3  w-full fixed"
+        style={{ backgroundColor: "#29163a" }}
+      >
+        <div className="flex-none">
+          <AvatarProfile />
+        </div>
+      </div>
+
+      <div className="w-0 px-4 pb-4 h-full text-white pt-20 flex flex-col justify-between relative transition-all lg:w-[16rem] lg:drawer-open">
         <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content flex items-center justify-center">
           <label
@@ -26,7 +36,7 @@ const SideBar = ({ contentType }) => {
         <div className="drawer-side" style={{ backgroundColor: "#29163A" }}>
           <label
             htmlFor="my-drawer-2"
-            aria-label="close sidebar"
+            aria-label="close SideBar2"
             className="drawer-overlay"
           ></label>
           <ul className="menu p-4 w-80  text-base-content">
@@ -86,6 +96,9 @@ const SideBar = ({ contentType }) => {
             </li>
           </ul>
         </div>
+      </div>
+      <div className="w-full flex-1 overflow-hidden ">
+        <div className="h-full overflow-y-auto pt-20 bg-[#593879]">{page}</div>
       </div>
     </div>
   );

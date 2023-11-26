@@ -1,23 +1,23 @@
-from flask_pymongo import PyMongo
+from flask_pymongo import pymongo
 from app import app
 from flask import jsonify, request
 from bson import ObjectId
 
-mongo = PyMongo(app)
+mongo = pymongo.MongoClient('mongodb+srv://vikripermana91:dJYIornv80L9PbSv@sitrifydb.9mx4ofx.mongodb.net/?retryWrites=true&w=majority').get_database('SitrifyDB')
 
 def get_all_artists():
-    artists_collection = mongo.db.artists
+    artists_collection = pymongo.collection.Collection(mongo, 'artists')
     artists_data = list(artists_collection.find({}, {'_id': 0}))
     return {"artists": artists_data}
 
 def get_artist_by_id(artist_id):
-    artists_collection = mongo.db.artists
+    artists_collection = pymongo.collection.Collection(mongo, 'artists')
     artist_data = artists_collection.find_one({'_id': ObjectId(artist_id)}, {'_id': 0})
     return artist_data
 
 # Menghitung selisih popularity dan followers berdasarkan id
 def calculate_followers_popularity_difference(artist_id):
-    artists_collection = mongo.db.artists
+    artists_collection = pymongo.collection.Collection(mongo, 'artists') 
     artist_data = artists_collection.find_one({'_id': ObjectId(artist_id)}, {'_id': 0, 'followers_popularity': 1})
 
     if 'followers_popularity' in artist_data:
@@ -44,7 +44,7 @@ def calculate_followers_popularity_difference(artist_id):
 
 # Menghitung dan menampilkan semua selisih popularity dan followers
 def calculate_all_artists_followers_popularity_difference():
-    artists_collection = mongo.db.artists
+    artists_collection = pymongo.collection.Collection(mongo, 'artists') 
     all_artists_data = list(artists_collection.find({}, {'_id': 1, 'followers_popularity': 1}))
 
     difference_list = []
@@ -72,7 +72,7 @@ def calculate_all_artists_followers_popularity_difference():
 
 # Menghitung dan menampilkan semua selisih popularity followers
 def calculate_all_artists_followers_difference():
-    artists_collection = mongo.db.artists
+    artists_collection = pymongo.collection.Collection(mongo, 'artists') 
     all_artists_data = list(artists_collection.find({}, {'_id': 1, 'followers_popularity': 1}))
 
     difference_list = []
@@ -98,7 +98,7 @@ def calculate_all_artists_followers_difference():
 
 # Menghitung dan menampilkan semua selisih popularity artist
 def calculate_all_artists_popularity_difference():
-    artists_collection = mongo.db.artists
+    artists_collection = pymongo.collection.Collection(mongo, 'artists')
     all_artists_data = list(artists_collection.find({}, {'_id': 1, 'followers_popularity': 1}))
 
     difference_list = []
